@@ -1,0 +1,63 @@
+version: "3.7"
+
+services:
+ nginx:
+  container_name: nginx
+  build: ./req/nginx/
+  ports:
+   - "443:443"
+  volumes:
+   - www:/home/www/
+  networks:
+   - wordpress
+  depends_on:
+   - wordpress
+   - db
+
+ wordpress:
+  container_name: wordpress
+  build: ./req/wordpress
+  volumes:
+   - www:/home/www/
+  networks:
+   - wordpress
+   - database
+  depends_on:
+   - db
+  env_file:
+   - .env
+
+ db:
+  container_name: db
+  build: ./req/mariadb
+  ports:
+   - "3306:3306"
+  restart: always
+  volumes:
+   - db:/var/lib/mysql
+  user: mysql
+  networks:
+   - database
+  environment:
+   DB_NAME: ${DB_NAME}
+   DB_ADMIN: ${DB_ADMIN}
+   DB_ADMIN_PASS: ${DB_ADMIN_PASS}
+   DB_ROOT_PASS: ${DB_ROOT_PASS}
+
+volumes:
+ db:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: ${HOME}/data/db
+ www:
+  driver: local
+  driver_opts:
+   type: none
+   o: bind
+   device: ${HOME}/data/www
+
+networks:
+ wordpress:
+ database:

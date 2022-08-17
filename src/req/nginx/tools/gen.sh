@@ -1,0 +1,1 @@
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./certs/nginx-selfsigned.key -out ./certs/nginx-selfsigned.crt -subj "/c=DE/ST=Baden-Wuerttemberg/L=Heilbronn/O=DVSGroup/OU=42Heilbronn/CN=mjeyavat.42.fr/emailAddress=mjeyavat@student.42heilbronn.de"
