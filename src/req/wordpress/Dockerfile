@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3
 
 # install php fpm and include wordpress volume
 RUN apk update && apk add --update-cache \

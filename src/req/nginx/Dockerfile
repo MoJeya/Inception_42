@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3
 # run update for conatinaer
 RUN apk update && apk add nginx
 # user has to be added for Container
